@@ -1,0 +1,33 @@
+{
+  "name": "@doruk/gql-test",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "npm run xpile && node dist",
+    "xpile": "babel -d dist --minified src",
+    "dev": "node-dev src"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "apollo-server": "^2.0.5",
+    "apollo-server-express": "^2.0.4",
+    "express": "^4.16.3",
+    "graphql": "^14.0.0",
+    "pg": "^7.4.3",
+    "sequelize": "^4.39.0",
+    "write-json-file": "^3.0.2"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.1.2",
+    "@babel/core": "^7.0.0",
+    "@babel/plugin-proposal-object-rest-spread": "^7.0.0",
+    "@babel/plugin-transform-modules-commonjs": "^7.0.0",
+    "@babel/register": "^7.0.0",
+    "babel-eslint": "^10.0.1",
+    "eslint": "^5.6.1",
+    "node-dev": "^3.1.3"
+  }
+}
