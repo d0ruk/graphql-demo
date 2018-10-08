@@ -1,23 +1,19 @@
 {
-  "name": "@doruk/gql-test",
+  "name": "graphql-demo",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
   "scripts": {
-    "start": "npm run xpile && node dist",
+    "start": "npm run xpile && npm run cp && node dist",
     "xpile": "babel -d dist --minified src",
-    "dev": "node-dev src"
+    "dev": "node-dev src",
+    "cp": "cp src/models/*.json dist/models"
   },
-  "keywords": [],
-  "author": "",
+  "author": "Doruk Kutlu",
   "license": "MIT",
   "dependencies": {
     "apollo-server": "^2.0.5",
     "apollo-server-express": "^2.0.4",
     "express": "^4.16.3",
     "graphql": "^14.0.0",
-    "pg": "^7.4.3",
-    "sequelize": "^4.39.0",
     "write-json-file": "^3.0.2"
   },
   "devDependencies": {
