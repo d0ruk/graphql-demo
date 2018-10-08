@@ -1,0 +1,22 @@
+version: "3"
+
+services:
+  db:
+    image: postgres:latest
+    container_name: app.postgres
+    restart: unless-stopped
+    # volumes:
+      # - ./db:/var/lib/postgresql/data
+    ports:
+      - 5432:5432
+    environment:
+      POSTGRES_PASSWORD: ${DB_PASS}
+      POSTGRES_USER: ${DB_USER}
+  adminer:
+    image: adminer:latest
+    container_name: app.adminer
+    restart: unless-stopped
+    ports:
+      - 8080:8080
+    environment:
+      ADMINER_DESIGN: mancave

@@ -1,20 +1,15 @@
 export default {
   Query: {
-    me: (parent, args, { me }) => {
-      return me;
-    },
-    user: (parent, { id }, { models }) => {
-      return models.users[id];
-    },
-    users: (parent, { limit = Infinity }, { models }) => {
-      return Object.values(models.users).slice(0, limit);
-    }
+    me: (parent, args, { models, me }) => models.user.findById(me.username),
+    user: (parent, { username }, { models }) => models.user.findById(username),
+    users: (parent, { limit }, { models }) => models.user.findAll({ limit }),
   },
 
   User: {
     fullname: ({ firstname, lastname }) => firstname + " " + lastname,
-    events: ({ events = [] }, args, { models }) => {
-      return events.map(eventId => models.events[eventId]);
+    events: async ({ username }, args, { models }) => {
+      const user = await models.user.findById(username);
+      return user.getEvents();
     }
   }
 };

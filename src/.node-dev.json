@@ -6,6 +6,5 @@
         "only": ["src/**"]
       }
     }
-  },
-  "ignore": ["src/models/events.json", "src/models/users.json"]
+  }
 }
