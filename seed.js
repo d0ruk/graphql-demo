@@ -9,8 +9,8 @@ const ATTENDING = 5;
 db.sync({ force: true })
   .then(() =>
     Promise.all([
-      Promise.all(fakeUsers(ROWS)),
-      Promise.all(fakeEvents(ROWS))
+      Promise.all(createUsers(ROWS)),
+      Promise.all(createEvents(ROWS))
     ])
   )
   .then(([users, events]) =>
@@ -23,9 +23,9 @@ db.sync({ force: true })
   .then(() => db.close())
   .catch(console.error);
 
-function fakeUsers(n) {
+function createUsers(n) {
   return range(n).map(idx =>
-    db.models.user.create({
+    db.models.User.create({
       username: faker.lorem.word() + idx,
       email: faker.internet.email(),
       firstname: faker.name.firstName(),
@@ -38,12 +38,12 @@ function fakeUsers(n) {
   );
 }
 
-function fakeEvents(n) {
+function createEvents(n) {
   return range(n).map(() =>
-    db.models.event.create({
+    db.models.Event.create({
       name: faker.lorem.word(),
       date: faker.date.future().toString(),
-      country: faker.address.country(),
+      country: faker.address.countryCode(),
       city: faker.address.city(),
       description: faker.lorem.paragraph()
     })
