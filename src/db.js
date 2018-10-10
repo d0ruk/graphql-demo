@@ -7,6 +7,7 @@ const db = new Sequelize(
   process.env.DB_USER,
   process.env.DB_PASS,
   {
+    host: "localhost",
     dialect: "postgres",
     logging:
       Boolean(process.env.VERBOSE) || process.env.NODE_ENV !== "production",
@@ -23,12 +24,10 @@ const db = new Sequelize(
   }
 );
 
-const MODELS = path.join(__dirname , "models");
+const MODELS = path.join(__dirname, "models");
 fs.readdirSync(MODELS)
   .filter(str => !str.startsWith(".") && str.endsWith(".js"))
-  .map(file => db.import(path.join(MODELS, file)))
-  .forEach(model => {
-    if ("associate" in model) model.associate(db.models);
-  });
+  .map(file => require(path.join(MODELS, file)).default.init(db))
+  .map(model => "associate" in model && model.associate(db.models));
 
 export default db;
