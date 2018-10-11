@@ -1,4 +1,6 @@
-import Sequelize, { Model } from "sequelize";
+import Sequelize, { Model, ValidationError } from "sequelize";
+
+import { hashPassword, comparePasswords } from "../util";
 
 export default class User extends Model {
   static init(db) {
@@ -20,6 +22,14 @@ export default class User extends Model {
 
     this.belongsToMany(models.Event, opts);
   }
+
+  static async beforeCreate(user) {
+    user.password = await hashPassword(user.password);
+  }
+
+  async validatePassword(password) {
+    return comparePasswords(this.password, password);
+  }
 }
 
 const columns = {
@@ -31,7 +41,7 @@ const columns = {
       notEmpty: {
         args: true,
         msg: "User name cannot be empty"
-      }
+      },
     }
   },
   firstname: Sequelize.STRING,

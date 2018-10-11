@@ -3,7 +3,7 @@
   "private": true,
   "version": "1.0.0",
   "main": "build/index.js",
-  "description": "graphql/postgres server with a dockerized environment",
+  "description": "graphql/express server with dockerized postgres",
   "scripts": {
     "start": "npm run txpile && NODE_ENV=production node .",
     "txpile": "babel -d build --minified src",
@@ -23,10 +23,12 @@
   "dependencies": {
     "apollo-server": "^2.0.5",
     "apollo-server-express": "^2.0.4",
+    "bcrypt": "^3.0.1",
     "chalk": "^2.4.1",
     "dotenv": "^6.0.0",
     "express": "^4.16.3",
     "graphql": "^14.0.0",
+    "jsonwebtoken": "^8.3.0",
     "lodash": "^4.17.11",
     "pg": "^7.4.3",
     "sequelize": "^4.39.0"
@@ -44,5 +46,13 @@
   },
   "engines": {
     "node": ">=8.9.x"
-  }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/d0ruk/graphql-demo.git"
+  },
+  "bugs": {
+    "url": "https://github.com/d0ruk/graphql-demo/issues"
+  },
+  "homepage": "https://github.com/d0ruk/graphql-demo#readme"
 }

@@ -28,6 +28,7 @@ function createUsers(n) {
     db.models.User.create({
       username: faker.lorem.word() + idx,
       email: faker.internet.email(),
+      password: faker.internet.password(),
       firstname: faker.name.firstName(),
       lastname: faker.name.lastName(),
       picture: faker.image.imageUrl(),

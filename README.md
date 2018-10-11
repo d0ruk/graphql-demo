@@ -2,8 +2,10 @@
 "dependencies": {
   "apollo-server": "^2.0.5",
   "apollo-server-express": "^2.0.4",
+  "bcrypt": "^3.0.1",
   "express": "^4.16.3",
   "graphql": "^14.0.0",
+  "jsonwebtoken": "^8.3.0",
   "pg": "^7.4.3",
   "sequelize": "^4.39.0"
 }
@@ -56,13 +58,25 @@ query {
 }
 ```
 
-
 ### mutate Event
 
 Each created event will be associated with the ```me``` user in the resolvers' context.
+
 ```js
 mutation {
   createEvent(name: "someevent") { id, name }
   deleteEvent(id: 101)
+}
+```
+
+### mutate User
+
+```
+mutation {
+  signUp(
+    username: "test",
+    email: "asd@asd.xyz",
+    password: "somepass") { token }
+  signIn(username: "test", password:"somepass") { token }
 }
 ```
