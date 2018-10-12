@@ -1,3 +1,7 @@
+import { combineResolvers } from "graphql-resolvers";
+
+import { isAuthenticated, canDeleteEvent } from "./auth";
+
 export default {
   Query: {
     event: (parent, { id }, { models }) => models.Event.findById(id),
@@ -5,16 +9,23 @@ export default {
   },
 
   Mutation: {
-    createEvent: async (parent, { name }, { me, models }) => {
-      const event = await models.Event.create({ name });
-      event.addPeople(me.username);
+    createEvent: combineResolvers(
+      isAuthenticated,
+      async (parent, { name }, { me, models }) => {
+        const event = await models.Event.create({ name });
+        event.addPeople(me.username);
 
-      return event;
-    },
+        return event;
+      }
+    ),
 
-    deleteEvent: (parent, { id }, { models }) => {
-      return models.Event.destroy({ where: { id } });
-    }
+    deleteEvent: combineResolvers(
+      isAuthenticated,
+      canDeleteEvent,
+      (parent, { id }, { models }) => {
+        return models.Event.destroy({ where: { id } });
+      }
+    )
   },
 
   Event: {
