@@ -23,10 +23,10 @@ export default class Event extends Model {
 
 const columns = {
   id: {
+    type: Sequelize.INTEGER(11).UNSIGNED,
     allowNull: false,
     autoIncrement: true,
     primaryKey: true,
-    type: Sequelize.INTEGER
   },
   name: {
     type: Sequelize.STRING,

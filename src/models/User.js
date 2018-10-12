@@ -42,6 +42,11 @@ const columns = {
         args: true,
         msg: "User name cannot be empty"
       },
+      async isUnique() {
+        const user = await User.findById(this.username);
+
+        if (user) throw new ValidationError("User name already exists");
+      }
     }
   },
   firstname: Sequelize.STRING,
