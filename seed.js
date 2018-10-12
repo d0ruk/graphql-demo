@@ -6,6 +6,13 @@ import db from "./src/db";
 const ROWS = 100;
 const ATTENDING = 5;
 
+const admin = {
+  username: "adm1n",
+  password: "imgroot",
+  email: "g@root.com",
+  role: "ADMIN",
+};
+
 db.sync({ force: true })
   .then(() =>
     Promise.all([
@@ -20,6 +27,7 @@ db.sync({ force: true })
         user => user.addEvents(sampleSize(events, ATTENDING))
     ))
   )
+  .then(() => db.models.User.create(admin))
   .then(() => db.close())
   .catch(console.error);
 
@@ -34,7 +42,8 @@ function createUsers(n) {
       picture: faker.image.imageUrl(),
       age: faker.random.number(),
       phone: faker.phone.phoneNumber(),
-      bio: faker.lorem.paragraph()
+      bio: faker.lorem.paragraph(),
+      role: "MUNCHKIN",
     })
   );
 }

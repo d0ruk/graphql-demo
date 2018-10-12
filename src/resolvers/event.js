@@ -22,9 +22,7 @@ export default {
     deleteEvent: combineResolvers(
       isAuthenticated,
       canDeleteEvent,
-      (parent, { id }, { models }) => {
-        return models.Event.destroy({ where: { id } });
-      }
+      (parent, { id }, { models }) => models.Event.destroy({ where: { id } })
     )
   },
 

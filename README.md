@@ -13,16 +13,16 @@
 
 ## usage
 
-* ```docker-compose up -d```
-* edit .env
-* ```npm run seed```
-* ```npm start```
+- `docker-compose up -d`
+- edit .env
+- `npm run seed`
+- `npm start`
 
 adminer is at localhost:8080
 
 graphiql is at localhost:8000/gql
 
-***
+---
 
 ### query User
 
@@ -58,17 +58,6 @@ query {
 }
 ```
 
-### mutate Event
-
-Each created event will be associated with the ```me``` user in the resolvers' context.
-
-```js
-mutation {
-  createEvent(name: "someevent") { id, name }
-  deleteEvent(id: 101)
-}
-```
-
 ### mutate User
 
 ```
@@ -76,7 +65,24 @@ mutation {
   signUp(
     username: "test",
     email: "asd@asd.xyz",
-    password: "somepass") { token }
-  signIn(username: "test", password:"somepass") { token }
+    password: "somepass"
+  ) { token }
+  signIn(username: "adm1n", password:"imgroot") { token }
+  deleteUser(username: "someuser") # 1
 }
 ```
+
+### mutate Event
+
+```
+mutation {
+  createEvent(name: "someevent") { # 1
+    id,
+    name,
+    going { username }
+  }
+  deleteEvent(id: 101)  # 1
+}
+```
+
+1. You need to set the appropriate *x-token* header for this mutation to work.

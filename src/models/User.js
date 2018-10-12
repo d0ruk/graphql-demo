@@ -75,5 +75,6 @@ const columns = {
   picture: Sequelize.STRING,
   age: Sequelize.INTEGER,
   phone: Sequelize.STRING,
-  bio: Sequelize.TEXT
+  bio: Sequelize.TEXT,
+  role: Sequelize.ENUM("ADMIN", "MUNCHKIN"),
 };

@@ -1,6 +1,8 @@
 import { AuthenticationError, UserInputError } from "apollo-server";
+import { combineResolvers } from "graphql-resolvers";
 
-import { createToken } from "../util";
+import { createToken } from "../util.js";
+import { isAdmin, isAuthenticated } from "./auth.js"
 
 export default {
   Query: {
@@ -31,7 +33,15 @@ export default {
       if (!isValid) throw new AuthenticationError("Invalid password");
 
       return { token: createToken(user, secret) };
-    }
+    },
+
+    deleteUser: combineResolvers(
+      isAuthenticated,
+      isAdmin,
+      async (parent, { username }, { models }) => {
+        return await models.User.destroy({ where: { username } });
+      }
+    ),
   },
 
   User: {
