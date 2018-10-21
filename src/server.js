@@ -8,10 +8,12 @@ export default (app, context) =>
     typeDefs,
     resolvers,
     context,
+    introspection: process.env.NODE_ENV === "development",
     formatError: error => {
       const message = error.message
         .replace("SequelizeValidationError: ", "")
-        .replace("Validation error: ", "");
+        .replace("Validation error: ", "")
+        .replace("Context creation failed: ", "");
 
       return {
         ...error,
