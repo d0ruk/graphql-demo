@@ -49,8 +49,14 @@ const columns = {
       }
     }
   },
-  firstname: Sequelize.STRING,
-  lastname: Sequelize.STRING,
+  firstname: {
+    type: Sequelize.STRING,
+    defaultValue: ""
+  },
+  lastname: {
+    type: Sequelize.STRING,
+    defaultValue: ""
+  },
   email: {
     type: Sequelize.STRING,
     allowNull: false,

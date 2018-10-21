@@ -45,7 +45,15 @@ export default {
   },
 
   User: {
-    fullname: ({ firstname, lastname }) => firstname + " " + lastname,
+    fullname: ({ firstname, lastname }) => {
+      return firstname
+        ? lastname
+          ? firstname + " " + lastname
+          : firstname + " Doe"
+        : lastname
+          ? "Mr(s). " + lastname
+          : null;
+    },
     events: async ({ username }, args, { models }) => {
       const user = await models.User.findById(username);
       return user.getEvents();
