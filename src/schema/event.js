@@ -19,5 +19,6 @@ export default gql`
     city: String
     description: String
     going: [User!]
+    owner: User!
   }
 `;

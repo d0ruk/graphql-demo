@@ -13,7 +13,7 @@ export default {
       isAuthenticated,
       async (parent, { name }, { me, models }) => {
         const event = await models.Event.create({ name });
-        event.addPeople(me.username);
+        await event.setOwner(me.username);
 
         return event;
       }
@@ -30,6 +30,11 @@ export default {
     going: async ({ id }, args, { models }) => {
       const event = await models.Event.findById(id);
       return event.getPeople();
+    },
+
+    owner: async ({ id }, args, { models }) => {
+      const event = await models.Event.findById(id);
+      return event.getOwner();
     }
   }
 };

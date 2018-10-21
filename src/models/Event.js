@@ -18,6 +18,7 @@ export default class Event extends Model {
     };
 
     this.belongsToMany(models.User, opts);
+    this.belongsTo(models.User, { as: "owner" });
   }
 }
 
