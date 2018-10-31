@@ -1,7 +1,7 @@
 {
   "name": "graphql-demo",
   "private": true,
-  "version": "1.0.0",
+  "version": "1.1.0",
   "main": "build/index.js",
   "description": "graphql/express server with dockerized postgres",
   "scripts": {
@@ -38,6 +38,7 @@
     "@babel/cli": "^7.1.2",
     "@babel/core": "^7.0.0",
     "@babel/plugin-proposal-object-rest-spread": "^7.0.0",
+    "@babel/plugin-proposal-optional-chaining": "^7.0.0",
     "@babel/plugin-transform-modules-commonjs": "^7.0.0",
     "@babel/register": "^7.0.0",
     "babel-eslint": "^10.0.1",
