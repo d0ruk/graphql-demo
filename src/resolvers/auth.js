@@ -1,19 +1,34 @@
 import { ForbiddenError } from "apollo-server";
-import { skip } from "graphql-resolvers";
+import { combineResolvers } from "graphql-resolvers";
 
 export const isAuthenticated = (_, args, { me }) =>
-  me ? skip : new ForbiddenError("Not authenticated");
+  me ? undefined : new ForbiddenError("Not authenticated");
+
+export const isAdmin = combineResolvers(
+  isAuthenticated,
+  (parent, args, { me: { role } }) =>
+    role === "ADMIN"
+      ? undefined
+      : new ForbiddenError("You are not an admin")
+);
 
 export const canDeleteEvent = async (_, { id }, { me, models }) => {
-  // only if the user is going to that event can she delete it
-  // TODO: associate "me" with created event through "owner" flag
-  const event = await models.Event.findById(id);
-  const going = (await event.getPeople()).map(u => u.username);
+  const owner = await getOwner(id, models.Event);
 
-  return going.some(e => e === me.username)
-    ? skip
-    : new ForbiddenError("You can't delete this event");
+  return owner.username === me.username
+    ? undefined
+    : isAdmin(_, _, { me });
 };
 
-export const isAdmin = (parent, args, { me: { role } }) =>
-  role === "ADMIN" ? skip : new ForbiddenError("You are not an admin");
+export const canDeleteUser = async (_, { username }, { me }) => {
+  return username === me.username
+    ? undefined
+    : isAdmin(_, _, { me });
+};
+
+async function getOwner(eventId, Model) {
+  const event = await Model.findById(eventId);
+  const owner = await event?.getOwner();
+
+  return owner || {};
+}
