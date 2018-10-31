@@ -13,14 +13,14 @@ const db = new Sequelize(
       Boolean(process.env.VERBOSE) || process.env.NODE_ENV !== "production",
     define: {
       charset: "utf8",
-      timestamps: true
+      timestamps: true,
     },
     pool: {
       max: 10,
       min: 0,
       acquire: 30000,
-      idle: 10000
-    }
+      idle: 10000,
+    },
   }
 );
 

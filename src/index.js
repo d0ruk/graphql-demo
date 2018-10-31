@@ -23,7 +23,7 @@ db
       return {
         models: db.models,
         me,
-        secret
+        secret,
       }
     };
 

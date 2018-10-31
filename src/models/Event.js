@@ -5,7 +5,7 @@ export default class Event extends Model {
     return super.init(
       columns, // eslint-disable-line
       {
-        sequelize: db
+        sequelize: db,
       }
     );
   }
@@ -14,7 +14,7 @@ export default class Event extends Model {
     const opts = {
       through: "Attendance",
       as: "People",
-      onDelete: "CASCADE"
+      onDelete: "CASCADE",
     };
 
     this.belongsToMany(models.User, opts);
@@ -35,12 +35,12 @@ const columns = {
     validate: {
       notEmpty: {
         args: true,
-        msg: "Event name cannot be empty"
-      }
-    }
+        msg: "Event name cannot be empty",
+      },
+    },
   },
   date: Sequelize.DATE,
   country: Sequelize.STRING(2),
   city: Sequelize.STRING,
-  description: Sequelize.TEXT
+  description: Sequelize.TEXT,
 };

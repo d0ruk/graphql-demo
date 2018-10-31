@@ -17,7 +17,7 @@ db.sync({ force: true })
   .then(() =>
     Promise.all([
       Promise.all(createUsers(ROWS)),
-      Promise.all(createEvents(ROWS))
+      Promise.all(createEvents(ROWS)),
     ])
   )
   .then(([users, events]) =>
@@ -55,7 +55,7 @@ function createEvents(n) {
       date: faker.date.future().toString(),
       country: faker.address.countryCode(),
       city: faker.address.city(),
-      description: faker.lorem.paragraph()
+      description: faker.lorem.paragraph(),
     })
   );
 }

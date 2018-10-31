@@ -17,7 +17,7 @@ export default (app, context) =>
 
       return {
         ...error,
-        message
+        message,
       };
-    }
+    },
   }).applyMiddleware({ app, path: "/gql" });

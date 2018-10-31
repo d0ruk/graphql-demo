@@ -5,7 +5,7 @@ import { isAuthenticated, canDeleteEvent } from "./auth";
 export default {
   Query: {
     event: (parent, { id }, { models }) => models.Event.findById(id),
-    events: (parent, { limit }, { models }) => models.Event.findAll({ limit })
+    events: (parent, { limit }, { models }) => models.Event.findAll({ limit }),
   },
 
   Mutation: {
@@ -23,7 +23,7 @@ export default {
       isAuthenticated,
       canDeleteEvent,
       (parent, { id }, { models }) => models.Event.destroy({ where: { id } })
-    )
+    ),
   },
 
   Event: {
@@ -35,6 +35,6 @@ export default {
     owner: async ({ id }, args, { models }) => {
       const event = await models.Event.findById(id);
       return event.getOwner();
-    }
-  }
+    },
+  },
 };

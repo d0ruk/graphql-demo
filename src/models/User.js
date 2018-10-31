@@ -9,15 +9,15 @@ export default class User extends Model {
       {
         sequelize: db,
         hooks: {
-          beforeCreate: User.beforeCreate
-        }
+          beforeCreate: User.beforeCreate,
+        },
       }
     );
   }
 
   static associate(models) {
     const opts = {
-      through: "Attendance"
+      through: "Attendance",
     };
 
     this.belongsToMany(models.Event, opts);
@@ -40,22 +40,22 @@ const columns = {
     validate: {
       notEmpty: {
         args: true,
-        msg: "User name cannot be empty"
+        msg: "User name cannot be empty",
       },
       async isUnique() {
         const user = await User.findById(this.username);
 
         if (user) throw new ValidationError("User name already exists");
-      }
-    }
+      },
+    },
   },
   firstname: {
     type: Sequelize.STRING,
-    defaultValue: ""
+    defaultValue: "",
   },
   lastname: {
     type: Sequelize.STRING,
-    defaultValue: ""
+    defaultValue: "",
   },
   email: {
     type: Sequelize.STRING,
@@ -63,9 +63,9 @@ const columns = {
     validate: {
       isEmail: {
         args: true,
-        msg: "That is not an e-mail address"
-      }
-    }
+        msg: "That is not an e-mail address",
+      },
+    },
   },
   password: {
     type: Sequelize.STRING,
@@ -74,9 +74,9 @@ const columns = {
       len: [7, 42],
       notEmpty: {
         args: true,
-        msg: "Password cannot be empty"
-      }
-    }
+        msg: "Password cannot be empty",
+      },
+    },
   },
   picture: Sequelize.STRING,
   age: Sequelize.INTEGER,

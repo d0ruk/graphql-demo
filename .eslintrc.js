@@ -9,7 +9,7 @@ module.exports = {
     sourceType: "module"
   },
   rules: {
-    "comma-dangle": 0,
+    "comma-dangle": [1, "always-multiline"],
     "no-use-before-define": [2, "nofunc"],
     "no-unused-vars": 1,
     "no-undef": 2,
