@@ -6,7 +6,7 @@ import { isAuthenticated, canDeleteUser } from "./auth.js";
 
 export default {
   Query: {
-    me: (parent, args, { models, me }) => models.User.findById(me.username),
+    me: (parent, args, { models, me }) => models.User.findById(me?.username),
     user: (parent, { username }, { models }) => models.User.findById(username),
     users: (parent, { limit }, { models }) => models.User.findAll({ limit }),
   },
