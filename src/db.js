@@ -9,8 +9,7 @@ const db = new Sequelize(
   {
     host: "localhost",
     dialect: "postgres",
-    logging:
-      Boolean(process.env.VERBOSE) || process.env.NODE_ENV !== "production",
+    logging: !process.env.NO_LOG && process.env.NODE_ENV !== "production",
     define: {
       charset: "utf8",
       timestamps: true,

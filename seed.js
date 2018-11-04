@@ -1,6 +1,7 @@
 import "dotenv/config";
 import faker from "faker";
 import { range, sampleSize } from "lodash";
+import chalk from "chalk";
 
 import db from "./src/db";
 const ROWS = 100;
@@ -22,14 +23,21 @@ db.sync({ force: true })
   )
   .then(([users, events]) =>
     Promise.all(
-      Array.from(
-        users,
-        user => user.addEvents(sampleSize(events, ATTENDING))
-    ))
+      Array.from(users, user => user.addEvents(sampleSize(events, ATTENDING)))
+    )
   )
   .then(() => db.models.User.create(admin))
-  .then(() => db.close())
-  .catch(console.error);
+  .then(() => {
+    console.log(
+      chalk.green.bold("Successfully seeded database " + process.env.DB_NAME)
+    );
+
+    return db.close();
+  })
+  .catch(err => {
+    console.error(chalk.red.bold(err));
+    process.exit(42);
+  });
 
 function createUsers(n) {
   return range(n).map(idx =>
