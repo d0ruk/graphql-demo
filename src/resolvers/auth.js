@@ -27,7 +27,7 @@ export const canDeleteUser = async (_, { username }, { me }) => {
 };
 
 async function getOwner(eventId, Model) {
-  const event = await Model.findById(eventId);
+  const event = await Model.findByPk(eventId);
   const owner = await event?.getOwner();
 
   return owner || {};

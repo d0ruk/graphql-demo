@@ -43,7 +43,7 @@ const columns = {
         msg: "User name cannot be empty",
       },
       async isUnique() {
-        const user = await User.findById(this.username);
+        const user = await User.findByPk(this.username);
 
         if (user) throw new ValidationError("User name already exists");
       },

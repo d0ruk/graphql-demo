@@ -4,7 +4,7 @@ import { isAuthenticated, canDeleteEvent } from "./auth";
 
 export default {
   Query: {
-    event: (parent, { id }, { models }) => models.Event.findById(id),
+    event: (parent, { id }, { models }) => models.Event.findByPk(id),
     events: (parent, { limit }, { models }) => models.Event.findAll({ limit }),
   },
 
@@ -28,12 +28,12 @@ export default {
 
   Event: {
     going: async ({ id }, args, { models }) => {
-      const event = await models.Event.findById(id);
+      const event = await models.Event.findByPk(id);
       return event.getPeople();
     },
 
     owner: async ({ id }, args, { models }) => {
-      const event = await models.Event.findById(id);
+      const event = await models.Event.findByPk(id);
       return event.getOwner();
     },
   },

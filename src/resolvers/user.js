@@ -6,8 +6,8 @@ import { isAuthenticated, canDeleteUser } from "./auth.js";
 
 export default {
   Query: {
-    me: (parent, args, { models, me }) => models.User.findById(me?.username),
-    user: (parent, { username }, { models }) => models.User.findById(username),
+    me: (parent, args, { models, me }) => models.User.findByPk(me?.username),
+    user: (parent, { username }, { models }) => models.User.findByPk(username),
     users: (parent, { limit }, { models }) => models.User.findAll({ limit }),
   },
 
@@ -26,7 +26,7 @@ export default {
     signIn: async (parent, args, { models, secret }) => {
       const { username, password } = args;
 
-      const user = await models.User.findById(username);
+      const user = await models.User.findByPk(username);
       if (!user) throw new UserInputError("No user with this username");
 
       const isValid = await user.validatePassword(password);
@@ -55,7 +55,7 @@ export default {
           : null;
     },
     events: async ({ username }, args, { models }) => {
-      const user = await models.User.findById(username);
+      const user = await models.User.findByPk(username);
       return user.getEvents();
     },
   },
