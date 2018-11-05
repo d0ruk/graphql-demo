@@ -1,3 +1,4 @@
+/* eslint no-console: 0 */
 import "dotenv/config";
 import faker from "faker";
 import { range, sampleSize } from "lodash";

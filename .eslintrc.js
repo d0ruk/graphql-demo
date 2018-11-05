@@ -25,6 +25,9 @@ module.exports = {
     "no-dupe-keys": 2,
     "default-case": 2,
     "eqeqeq": 1,
-    "guard-for-in": 2
+    "guard-for-in": 2,
+    "indent": [2, 2],
+    "quotes": [2, "double"],
+    "max-len": [1, { "code": 80, "ignoreComments": true }],
   }
 };

@@ -4,8 +4,8 @@ const graph = graphql("http://localhost:8000/gql", {
   asJSON: true,
   alwaysAutodeclare: true,
   fragments: {
-    info: "on User {username, email, role}"
-  }
+    info: "on User {username, email, role}",
+  },
 });
 
 export const getUser = graph.query(`
@@ -38,4 +38,4 @@ export const signIn = graph.mutate(`
   signIn(username: $username, password: $password) { token }
 `);
 
-export const deleteUser = graph.mutate(`deleteUser(username: $username)`);
+export const deleteUser = graph.mutate("deleteUser(username: $username)");
