@@ -5,9 +5,9 @@ import { AuthenticationError } from "apollo-server-express";
 export const hashPassword = str => bcrypt.hash(str, 10);
 
 export const createToken = async (user, secret, expiresIn = "30m") => {
-  const { id, email, username, role } = user;
+  const { email, username, role } = user;
 
-  return await jwt.sign({ id, email, username, role }, secret, { expiresIn });
+  return await jwt.sign({ email, username, role }, secret, { expiresIn });
 };
 
 export const comparePasswords = async (actual, supplied) =>
