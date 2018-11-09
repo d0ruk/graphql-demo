@@ -22,11 +22,18 @@ db.sync({ force: true })
       Promise.all(createEvents(ROWS)),
     ])
   )
-  .then(([users, events]) =>
-    Promise.all(
-      Array.from(users, user => user.addEvents(sampleSize(events, ATTENDING)))
-    )
-  )
+  .then(([users, events]) => {
+    const userEvents = Array.from(users, user =>
+      user.addEvents(sampleSize(events, ATTENDING))
+    );
+
+    const eventOwner = Array.from(events, event => {
+      const [owner] = sampleSize(users, 1);
+      return event.setOwner(owner.username);
+    });
+
+    return Promise.all([...eventOwner, ...userEvents]);
+  })
   .then(() => db.models.User.create(admin))
   .then(() => {
     console.log(
@@ -61,7 +68,7 @@ function createEvents(n) {
   return range(n).map(() =>
     db.models.Event.create({
       name: faker.lorem.word(),
-      date: faker.date.future().toString(),
+      date: faker.date.future().toDateString(),
       country: faker.address.countryCode(),
       city: faker.address.city(),
       description: faker.lorem.paragraph(),
