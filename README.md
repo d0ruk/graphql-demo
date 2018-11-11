@@ -13,8 +13,8 @@
 
 ## usage
 
-- `docker-compose up -d`
 - edit .env
+- `docker-compose up -d`
 - `npm run seed`
 - `npm start`
 
@@ -27,34 +27,48 @@ graphiql is at localhost:8000/gql
 ### query User
 
 ```js
-query {
-  me {
-    username,
-    events { name, date }
+fragment info on User {
+  username,
+  fullname,
+  events {
+    name,
+    country,
+    date
   }
+}
+
+query {
   user(username: "someuser") {
-    username,
-    fullname,
-    email,
-    events { name, country }
+    ...info
+    events {
+      owner { ...info }
+    }
   }
   users(limit: 10) { username }
+  me { ...info }
 }
 ```
 
 ### query Event
 
 ```js
+fragment userInfo on User {
+  username,
+  fullname,
+  email,
+}
+
+fragment eventInfo on Event {
+  id,
+  name,
+  date,
+  going { ...userInfo }
+  owner { ...userInfo }
+}
+
 query {
-  event(id: 42) {
-    id,
-    name,
-    going { username }
-  }
-  events(limit: 3) {
-    name,
-    going { username }
-  }
+  event(id: 42) { ...eventInfo }
+  events(limit: 3) { ...eventInfo }
 }
 ```
 
@@ -79,9 +93,9 @@ mutation {
   createEvent(name: "someevent") { # 1
     id,
     name,
-    going { username }
+    owner { username }
   }
-  deleteEvent(id: 101)  # 1
+  deleteEvent(id: 101) # 1
 }
 ```
 

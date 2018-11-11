@@ -14,7 +14,7 @@ export default gql`
   type Event {
     id: ID!
     name: String!
-    date: String
+    date: Date!
     country: String
     city: String
     description: String
