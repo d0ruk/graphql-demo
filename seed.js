@@ -59,7 +59,6 @@ function createUsers(n) {
       age: faker.random.number(),
       phone: faker.phone.phoneNumber(),
       bio: faker.lorem.paragraph(),
-      role: "MUNCHKIN",
     })
   );
 }

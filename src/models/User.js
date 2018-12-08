@@ -82,5 +82,8 @@ const columns = {
   age: Sequelize.INTEGER,
   phone: Sequelize.STRING,
   bio: Sequelize.TEXT,
-  role: Sequelize.ENUM("ADMIN", "MUNCHKIN"),
+  role: {
+    type: Sequelize.ENUM("ADMIN", "MUNCHKIN"),
+    defaultValue: "MUNCHKIN",
+  },
 };
