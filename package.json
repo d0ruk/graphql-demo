@@ -1,7 +1,7 @@
 {
   "name": "graphql-demo",
   "private": true,
-  "version": "1.1.0",
+  "version": "1.2.0",
   "main": "build/index.js",
   "description": "graphql/express server with dockerized postgres",
   "scripts": {
@@ -9,7 +9,7 @@
     "txpile": "babel -d build --minified src",
     "dev": "node-dev src",
     "seed": "node -r @babel/register seed.js",
-    "inspect": "node -r @babel/register --inspect-brk src",
+    "inspect": "node -r @babel/register --inspect src",
     "lint": "eslint src seed.js",
     "e2e": "wait-on tcp:8000 && mocha -r @babel/register 'src/**/*.spec.js'",
     "test:start": "DB_NAME=test run-p -rs start e2e",
@@ -36,7 +36,7 @@
     "jsonwebtoken": "^8.3.0",
     "lodash": "^4.17.11",
     "pg": "^7.4.3",
-    "sequelize": "^4.39.0"
+    "sequelize": "^4.41.2"
   },
   "devDependencies": {
     "@babel/cli": "^7.1.2",

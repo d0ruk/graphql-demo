@@ -62,13 +62,14 @@ fragment eventInfo on Event {
   id,
   name,
   date,
+  createdAt,
   going { ...userInfo }
   owner { ...userInfo }
 }
 
 query {
   event(id: 42) { ...eventInfo }
-  events(limit: 3) { ...eventInfo }
+  events(cursor:"2018-12-04", limit: 3) { id, createdAt }
 }
 ```
 
@@ -90,9 +91,10 @@ mutation {
 
 ```
 mutation {
-  createEvent(name: "someevent") { # 1
+  createEvent(name: "bigcrowd",  date: "2017-01-20") { # 1
     id,
     name,
+    date,
     owner { username }
   }
   deleteEvent(id: 101) # 1
