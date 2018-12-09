@@ -1,10 +1,10 @@
-import { GraphQLDateTime } from "graphql-iso-date";
+import { GraphQLDate, GraphQLDateTime } from "graphql-iso-date";
 
 import userResolvers from "./user";
 import eventResolvers from "./event";
 
 export default [
-  { Date: GraphQLDateTime },
+  { Date: GraphQLDate, DateTime: GraphQLDateTime },
   userResolvers,
-  eventResolvers
+  eventResolvers,
 ];

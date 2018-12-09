@@ -5,6 +5,7 @@ import eventSchema from "./event";
 
 const linkSchema = gql`
   scalar Date
+  scalar DateTime
 
   type Query {
     _: Boolean
