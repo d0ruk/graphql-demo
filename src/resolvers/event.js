@@ -5,7 +5,17 @@ import { isAuthenticated, canDeleteEvent } from "./auth";
 export default {
   Query: {
     event: (parent, { id }, { models }) => models.Event.findByPk(id),
-    events: (parent, { limit }, { models }) => models.Event.findAll({ limit }),
+    events: (parent, { cursor = new Date(), limit = 100 }, { models }) => {
+      return models.Event.findAll({
+        order: [["createdAt", "DESC"]],
+        limit,
+        where: {
+          createdAt: {
+            [Sequelize.Op.lt]: cursor,
+          },
+        },
+      });
+    },
   },
 
   Mutation: {
