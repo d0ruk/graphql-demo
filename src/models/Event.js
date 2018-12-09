@@ -1,16 +1,11 @@
 import Sequelize, { Model } from "sequelize";
 
-const isProd = process.env.NODE_ENV === "production";
-
 export default class Event extends Model {
   static init(db) {
     return super.init(
       columns, // eslint-disable-line
       {
         sequelize: db,
-        hooks: {
-          beforeCreate: Event.beforeCreate,
-        },
       }
     );
   }
@@ -24,16 +19,6 @@ export default class Event extends Model {
 
     this.belongsToMany(models.User, opts);
     this.belongsTo(models.User, { as: "owner" });
-  }
-
-  static beforeCreate(event) {
-    if (!isProd) {
-      // Date is a non-nullable field in the Event schema
-      // since entering a correctly parsed date string
-      // with only the graphiql hurts, fake it 'til u make it
-      const { date } = require("faker");
-      event.date = date.future().toDateString();
-    }
   }
 }
 
@@ -54,7 +39,10 @@ const columns = {
       },
     },
   },
-  date: Sequelize.DATE,
+  date: {
+    type: Sequelize.DATE,
+    allowNull: false,
+  },
   country: Sequelize.STRING(2),
   city: Sequelize.STRING,
   description: Sequelize.TEXT,

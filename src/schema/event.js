@@ -7,7 +7,7 @@ export default gql`
   }
 
   extend type Mutation {
-    createEvent(name: String!): Event!
+    createEvent(name: String!, date: Date!): Event!
     deleteEvent(id: ID!): Boolean!
   }
 

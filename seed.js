@@ -1,7 +1,7 @@
 /* eslint no-console: 0 */
 import "dotenv/config";
 import faker from "faker";
-import { range, sampleSize } from "lodash";
+import { range, sampleSize, random } from "lodash";
 import chalk from "chalk";
 
 import db from "./src/db";
@@ -67,10 +67,21 @@ function createEvents(n) {
   return range(n).map(() =>
     db.models.Event.create({
       name: faker.lorem.word(),
-      date: faker.date.future().toDateString(),
+      date: faker.date
+        .future()
+        .toISOString()
+        .substring(0, 10),
       country: faker.address.countryCode(),
       city: faker.address.city(),
       description: faker.lorem.paragraph(),
+      createdAt: dateInPastWeek(),
     })
   );
+}
+
+function dateInPastWeek() {
+  const d = new Date();
+  d.setDate(d.getDate() - random(6));
+
+  return d;
 }

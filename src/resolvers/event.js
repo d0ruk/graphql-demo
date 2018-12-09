@@ -1,3 +1,4 @@
+import Sequelize from "sequelize";
 import { combineResolvers } from "graphql-resolvers";
 
 import { isAuthenticated, canDeleteEvent } from "./auth";
@@ -21,10 +22,13 @@ export default {
   Mutation: {
     createEvent: combineResolvers(
       isAuthenticated,
-      async (parent, { name }, { me, models }) => {
-        const event = await models.Event.create({ name });
-        await event.setOwner(me.username);
+      async (parent, { name, date }, { me, models }) => {
+        const event = await models.Event.create({
+          name,
+          date,
+        });
 
+        await event.setOwner(me.username);
         return event;
       }
     ),
