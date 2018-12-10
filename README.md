@@ -5,9 +5,10 @@
   "bcrypt": "^3.0.1",
   "express": "^4.16.3",
   "graphql": "^14.0.0",
+  "graphql-iso-date": "^3.6.1",
   "jsonwebtoken": "^8.3.0",
   "pg": "^7.4.3",
-  "sequelize": "^4.39.0"
+  "sequelize": "^4.41.2"
 }
 ```
 
@@ -69,7 +70,7 @@ fragment eventInfo on Event {
 
 query {
   event(id: 42) { ...eventInfo }
-  events(cursor:"2018-12-04", limit: 3) { id, createdAt }
+  events(cursor:"2018-12-04T02:07:37.480Z", limit: 3) { id, createdAt }
 }
 ```
 
