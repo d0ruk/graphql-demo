@@ -6,16 +6,32 @@ import { isAuthenticated, canDeleteEvent } from "./auth";
 export default {
   Query: {
     event: (parent, { id }, { models }) => models.Event.findByPk(id),
-    events: (parent, { cursor = new Date(), limit = 100 }, { models }) => {
-      return models.Event.findAll({
+    events: async (
+      parent,
+      { cursor = new Date(), limit = 100 },
+      { models }
+    ) => {
+      const Events = await models.Event.findAll({
         order: [["createdAt", "DESC"]],
-        limit,
+        limit: limit + 1,
         where: {
           createdAt: {
             [Sequelize.Op.lt]: cursor,
           },
         },
       });
+
+      // we list limit + 1 documents and thus know if there is a next page
+      const hasNextPage = Events.length > limit;
+      const events = hasNextPage ? Events.slice(0, -1) : Events;
+
+      return {
+        events,
+        meta: {
+          hasNextPage,
+          endCursor: events[events.length - 1]?.createdAt,
+        },
+      };
     },
   },
 
