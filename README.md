@@ -70,7 +70,10 @@ fragment eventInfo on Event {
 
 query {
   event(id: 42) { ...eventInfo }
-  events(cursor:"2018-12-04T02:07:37.480Z", limit: 3) { id, createdAt }
+  events(cursor:"2018-12-04T02:07:37.480Z", limit: 3) {
+    events { ...eventInfo }
+    meta { hasNextPage }
+  }
 }
 ```
 
