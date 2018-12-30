@@ -79,7 +79,7 @@ query {
 
 ### mutate User
 
-```
+```js
 mutation {
   signUp(
     username: "test",
@@ -93,7 +93,7 @@ mutation {
 
 ### mutate Event
 
-```
+```js
 mutation {
   createEvent(name: "bigcrowd",  date: "2017-01-20") { # 1
     id,
@@ -102,6 +102,21 @@ mutation {
     owner { username }
   }
   deleteEvent(id: 101) # 1
+}
+```
+
+### subscribe to Event
+
+```js
+subscription {
+  newEvent {
+    id
+    name
+    createdAt
+    owner {
+      username
+    }
+  }
 }
 ```
 

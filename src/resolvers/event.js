@@ -2,6 +2,7 @@ import Sequelize from "sequelize";
 import { combineResolvers } from "graphql-resolvers";
 
 import { isAuthenticated, canDeleteEvent } from "./auth";
+import pubsub, { SUBSCRIPTIONS as SUBS } from "../subscriptions";
 
 export default {
   Query: {
@@ -45,6 +46,9 @@ export default {
         });
 
         await event.setOwner(me.username);
+
+        pubsub.publish(SUBS.EVENT.CREATED, { newEvent: event });
+
         return event;
       }
     ),
@@ -65,6 +69,12 @@ export default {
     owner: async ({ id }, args, { models }) => {
       const event = await models.Event.findByPk(id);
       return event.getOwner();
+    },
+  },
+
+  Subscription: {
+    newEvent: {
+      subscribe: () => pubsub.asyncIterator(SUBS.EVENT.CREATED),
     },
   },
 };

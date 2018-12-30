@@ -11,6 +11,10 @@ export default gql`
     deleteEvent(id: ID!): Boolean!
   }
 
+  extend type Subscription {
+    newEvent: Event!
+  }
+
   type EventConnection {
     events: [Event!]!
     meta: Meta!
