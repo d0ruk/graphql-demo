@@ -15,8 +15,8 @@ const PLAYGROUND_CONFIG = {
   },
 };
 
-export default (app, context) =>
-  new ApolloServer({
+export default (httpServer, app, context) => {
+  const server = new ApolloServer({
     typeDefs,
     resolvers,
     context,
@@ -33,4 +33,8 @@ export default (app, context) =>
         message,
       };
     },
-  }).applyMiddleware({ app, path: "/gql" });
+  });
+
+  server.installSubscriptionHandlers(httpServer);
+  server.applyMiddleware({ app, path: "/gql" });
+};

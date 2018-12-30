@@ -1,4 +1,5 @@
 import "dotenv/config";
+import { createServer } from "http";
 import chalk from "chalk";
 import express from "express";
 
@@ -14,24 +15,28 @@ import db from "./db";
 import { getMe } from "./util.js";
 
 const app = express();
+const httpServer = createServer(app);
+
 db
   .sync({ force: Boolean(process.env.SYNC) })
   .then(async () => {
-    const context = async ({ req }) => {
-      const me = await getMe(req);
+    const context = async ({ req, connection }) => {
+      const models = db.models;
+      if (connection) return { models, ...connection.context };
 
+      const me = await getMe(req);
       return {
-        models: db.models,
+        models,
         me,
         secret,
       }
     };
 
-    registerGqlServer(app, context);
+    registerGqlServer(httpServer, app, context);
 
     const port = Number(process.env.PORT) || 8000;
     const host = "0.0.0.0";
-    const listener = await app.listen({ host, port });
+    const listener = await httpServer.listen({ host, port });
     const { address, port: listeningOn } = listener.address();
 
     console.log(  // eslint-disable-line
