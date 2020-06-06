@@ -24,7 +24,7 @@
   "author": "Doruk Kutlu",
   "license": "MIT",
   "dependencies": {
-    "apollo-server": "^2.0.5",
+    "apollo-server": "^2.14.2",
     "apollo-server-express": "^2.0.4",
     "bcrypt": "^3.0.7",
     "chalk": "^2.4.1",
