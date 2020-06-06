@@ -25,7 +25,7 @@
   "license": "MIT",
   "dependencies": {
     "apollo-server": "^2.0.5",
-    "apollo-server-express": "^2.0.4",
+    "apollo-server-express": "^2.14.2",
     "bcrypt": "^3.0.7",
     "chalk": "^2.4.1",
     "dotenv": "^6.0.0",
