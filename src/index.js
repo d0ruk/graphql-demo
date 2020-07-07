@@ -37,11 +37,14 @@ db
     const port = Number(process.env.PORT) || 8000;
     const host = "0.0.0.0";
     const listener = await httpServer.listen({ host, port });
-    const { address, port: listeningOn } = listener.address();
 
-    console.log(  // eslint-disable-line
-      chalk.green.bold("GraphiQL at http://%s:%s/gql"),
-      address,
-      listeningOn
-    );
+    process.nextTick(() => {
+      const { address, port: listeningOn } = listener.address();
+
+      console.log(  // eslint-disable-line
+        chalk.green.bold("GraphiQL at http://%s:%s/gql"),
+        address,
+        listeningOn
+      );
+    });
   });
