@@ -2,13 +2,13 @@
 "dependencies": {
   "apollo-server": "^2.0.5",
   "apollo-server-express": "^2.0.4",
-  "bcrypt": "^3.0.1",
+  "bcrypt": "^5.0.0",
   "express": "^4.16.3",
-  "graphql": "^14.0.0",
+  "graphql": "^15.3.0",
   "graphql-iso-date": "^3.6.1",
   "jsonwebtoken": "^8.3.0",
-  "pg": "^7.4.3",
-  "sequelize": "^4.41.2"
+  "pg": "^8.2.2",
+  "sequelize": "^6.3.0"
 }
 ```
 
@@ -120,4 +120,4 @@ subscription {
 }
 ```
 
-1. You need to set the appropriate *x-token* header for this mutation to work.
+1. You need to set the appropriate _x-token_ header for this mutation to work.
