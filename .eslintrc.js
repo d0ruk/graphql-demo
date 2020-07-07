@@ -3,10 +3,10 @@ module.exports = {
   extends: ["eslint:recommended"],
   env: {
     es6: true,
-    node: true
+    node: true,
   },
   parserOptions: {
-    sourceType: "module"
+    sourceType: "module",
   },
   rules: {
     "comma-dangle": [1, "always-multiline"],
@@ -24,10 +24,14 @@ module.exports = {
     "no-dupe-args": 2,
     "no-dupe-keys": 2,
     "default-case": 2,
-    "eqeqeq": 1,
+    eqeqeq: 1,
     "guard-for-in": 2,
-    "indent": [2, 2],
-    "quotes": [2, "double"],
-    "max-len": [1, { "code": 80, "ignoreComments": true }],
-  }
+    indent: [2, 2],
+    quotes: [2, "double"],
+    "max-len": [1, { code: 80, ignoreComments: true }],
+    "no-dupe-else-if": 1,
+    "no-useless-catch": 1,
+    "no-import-assign": 1,
+    "no-setter-return": 1,
+  },
 };
